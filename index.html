@@ -1,0 +1,224 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jada Sange</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow reading column, a build-log feel — mono metadata rails beside each entry, a timeline for hackathons */
+:root{
+  --bg:#F2F4F7; --surface:#FFFFFF; --ink:#141B2D; --muted:#5A6377; --line:#D6DBE5;
+  --accent:#2448D8; --accent-soft:#E3E9FC; --win:#B7790F;
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1422; --surface:#161D2F; --ink:#E7EAF2; --muted:#98A1B6; --line:#2A3349;
+  --accent:#7D98FF; --accent-soft:#1E2A4F; --win:#E7B54A; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0F1422; --surface:#161D2F; --ink:#E7EAF2; --muted:#98A1B6; --line:#2A3349;
+  --accent:#7D98FF; --accent-soft:#1E2A4F; --win:#E7B54A; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.wrap{max-width:820px;margin:0 auto;padding-block:28px 64px;display:flex;flex-direction:column;gap:64px}
+a{color:var(--accent)} a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font:500 13px var(--mono)}
+nav .links{display:flex;gap:18px;flex-wrap:wrap} nav a{color:var(--muted);text-decoration:none} nav a:hover{color:var(--accent)}
+.mark{font:800 18px var(--display);letter-spacing:-.02em}
+.mono{font-family:var(--mono)}
+.eyebrow{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+h1{font:800 clamp(48px,11vw,96px)/.92 var(--display);letter-spacing:-.045em;margin:10px 0 18px;text-wrap:balance}
+h1 span{color:var(--accent)}
+.lede{font-size:19px;max-width:58ch;margin:0;color:var(--ink)}
+.facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:26px;font:14px var(--mono);color:var(--muted)}
+.facts b{color:var(--ink);font-weight:500}
+h2{font:700 30px/1.1 var(--display);letter-spacing:-.02em;margin:6px 0 0;text-wrap:balance}
+section>header{margin-bottom:24px}
+.proj{display:grid;grid-template-columns:150px 1fr;gap:6px 28px;padding-block:22px;border-top:1px solid var(--line)}
+.proj:last-child{border-bottom:1px solid var(--line)}
+.meta{font:13px/1.5 var(--mono);color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.status{display:inline-block;width:max-content;font:500 11px var(--mono);padding:1px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent);margin-top:4px}
+.proj h3{font:700 22px/1.2 var(--display);margin:0;letter-spacing:-.01em}
+.role{color:var(--muted);font-size:14px;margin:2px 0 8px}
+.award{color:var(--win);font:500 13px var(--mono)}
+.proj ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.proj>div{min-width:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tags span{font:12px var(--mono);border:1px solid var(--line);padding:2px 8px;border-radius:4px;color:var(--muted)}
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline li{position:relative;padding:0 0 32px 36px}
+.timeline li::before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.timeline li.next::before{border-style:dashed;border-color:var(--muted)}
+.timeline h3{font:700 20px/1.25 var(--display);margin:4px 0 2px}
+.stat{display:flex;gap:16px;flex-wrap:wrap;font:13px var(--mono);color:var(--muted);margin:6px 0}
+.stat b{color:var(--ink);font-weight:500}
+.story{margin:12px 0 0;max-width:62ch;display:flex;flex-direction:column;gap:10px}
+.story p{margin:0}
+.team{font:13px/1.6 var(--mono);color:var(--muted)}
+.skills{display:grid;grid-template-columns:150px 1fr;gap:14px 28px}
+.skills dt{font:500 13px var(--mono);color:var(--muted);padding-top:2px} .skills dd{margin:0}
+.lead{display:flex;flex-direction:column;gap:16px} .lead p{margin:0}
+.lead b{font-family:var(--display);font-size:18px}
+.contact{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:28px}
+.contact h2{margin-bottom:8px}
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:16px}
+.email{font:15px var(--mono);user-select:all;word-break:break-all}
+button{font:500 13px var(--mono);background:var(--accent);color:var(--bg);border:0;border-radius:6px;padding:8px 14px;cursor:pointer}
+footer{font:12px var(--mono);color:var(--muted)}
+@media (max-width:620px){.proj,.skills{grid-template-columns:1fr}.meta{flex-direction:row;flex-wrap:wrap;gap:4px 12px}}
+@media (prefers-reduced-motion:no-preference){.hero>*{animation:up .6s ease both}.hero>*:nth-child(2){animation-delay:.08s}.hero>*:nth-child(3){animation-delay:.16s}.hero>*:nth-child(4){animation-delay:.24s}
+@keyframes up{from{transform:translateY(8px)}to{transform:none}}}
+</style>
+</head><body>
+
+<div class="wrap">
+  <nav>
+    <span class="mark">JS</span>
+    <div class="links"><a href="#projects">Projects</a><a href="#hackathons">Hackathons</a><a href="#skills">Skills</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <section class="hero">
+    <div class="eyebrow">Software Engineering · San Jose State University</div>
+    <h1>Jada<br><span>Sange</span></h1>
+    <p class="lede">I build things in C, C++, and Python, from embedded sensor code on a racing car to full apps shipped in a hackathon weekend. I'm looking for a software engineering internship.</p>
+    <div class="facts"><span><b>2</b> hackathon awards</span><span><b>250</b> sign-ups on Roomie</span><span>Class of <b>May 2028</b></span><span>San Jose, CA</span></div>
+  </section>
+
+  <section id="projects">
+    <header><div class="eyebrow">Selected work</div><h2>Projects</h2></header>
+
+    <article class="proj">
+      <div class="meta"><span>Apr 2026</span><span>Team of 4</span><span>3-hour build</span></div>
+      <div>
+        <h3>Roomie</h3>
+        <p class="award">2nd Place, $3,000 · SpartUp SJSU Tractionathon</p>
+        <ul>
+          <li>Roommate-matching app that reached 250 sign-ups.</li>
+          <li>Built the Profile, Discover, Matches, and Chat screens and connected them to a Python matching algorithm.</li>
+          <li>Fixed Supabase schema and row-level-security bugs to get live user data flowing.</li>
+        </ul>
+        <div class="tags"><span>React Native</span><span>Expo</span><span>Supabase</span><span>Python</span></div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="meta"><span>Apr 2026</span><span>Backend owner</span></div>
+      <div>
+        <h3>PixelPilot</h3>
+        <p class="award">Best Cybersecurity Prize · SJHacks</p>
+        <ul>
+          <li>A bot that auto-playtests 2D game levels over repeated runs and reports failure patterns as feedback for developers.</li>
+          <li>Owned the backend and debugged through several iterations to ship a working demo before the deadline.</li>
+        </ul>
+        <div class="tags"><span>Godot</span><span>Python</span></div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="meta"><span>Fall 2026</span><span>Team lead</span><span class="status">In progress</span></div>
+      <div>
+        <h3>Local Intent Router (M7)</h3>
+        <p class="role">SJSU AI &amp; ML Club × My Academic Planner</p>
+        <ul>
+          <li>Lead a 4-person team building a local intent router for My Academic Planner.</li>
+          <li>Own integration and safety; coordinate the classifier and rules, data labeling, and evaluation work.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="meta"><span>Project lead</span><span>3–5 people</span><span class="status">In progress</span></div>
+      <div>
+        <h3>SafeLabel</h3>
+        <p class="role">Responsible Computing Club, SJSU</p>
+        <ul>
+          <li>An app that scans food labels with OCR and flags ingredients that conflict with a user's allergies or diet.</li>
+          <li>Designing warnings that explain why each ingredient is flagged and say when a match can't be confirmed.</li>
+          <li>Set the scope and timeline; coordinate research, OCR, backend, and UI/UX.</li>
+        </ul>
+        <div class="tags"><span>OCR</span><span>Image processing</span></div>
+      </div>
+    </article>
+
+    <article class="proj">
+      <div class="meta"><span>Powertrain team</span><span class="status">In progress</span></div>
+      <div>
+        <h3>F1-Style RC Racing Car</h3>
+        <p class="role">Spartan Racing, SJSU</p>
+        <ul>
+          <li>Learned C to write software for the car's charger and onboard sensor modules, starting with wheel-RPM sensing.</li>
+          <li>Helping select the chassis and microcontroller and integrate sensor breakout boards.</li>
+        </ul>
+        <div class="tags"><span>C</span><span>Embedded</span><span>Sensors</span></div>
+      </div>
+    </article>
+  </section>
+
+  <section id="hackathons">
+    <header><div class="eyebrow">Build log</div><h2>My hackathon journey</h2></header>
+    <ol class="timeline">
+      <li>
+        <div class="eyebrow">Apr 2026 · SJHacks</div>
+        <h3>PixelPilot</h3>
+        <div class="stat"><span>Track: <b>Game Development</b></span><span>Result: <b>Best Cybersecurity Prize</b></span></div>
+        <div class="story">
+          <p>A bot that playtests 2D game levels over and over, tracks where it fails, and turns that into feedback developers can use. It took a lot of debugging rounds, but we shipped a working demo.</p>
+          <p class="team">Built with <a href="https://www.linkedin.com/in/diya-jhawar-7a9191310/" target="_blank" rel="noopener">Diya Jhawar</a></p>
+        </div>
+      </li>
+      <li>
+        <div class="eyebrow">Apr 2026 · SpartUp SJSU Tractionathon</div>
+        <h3>Roomie</h3>
+        <div class="stat"><span>Build time: <b>3 hours</b></span><span>Result: <b>2nd Place, $3,000</b></span><span>Sign-ups: <b>250</b></span></div>
+        <div class="story">
+          <p>My first app ever. Roomie puts roommate matching, swiping, chat, and housing search in one place for students. 200+ votes in 3 hours showed it solved a real problem.</p>
+          <p class="team">Built with <a href="https://www.linkedin.com/in/mishaapatell/" target="_blank" rel="noopener">Misha Patel</a>, <a href="https://www.linkedin.com/in/diya-jhawar-7a9191310/" target="_blank" rel="noopener">Diya Jhawar</a>, and <a href="https://www.linkedin.com/in/rajeshwarimittal/" target="_blank" rel="noopener">Rajeshwari Mittal</a> · Mentors: <a href="https://www.linkedin.com/in/elifinn/" target="_blank" rel="noopener">Eli Finn</a> and <a href="https://www.linkedin.com/in/max-rothe-0a2182142/" target="_blank" rel="noopener">Max Rothe</a></p>
+        </div>
+      </li>
+      <li class="next">
+        <div class="eyebrow">Next</div>
+        <h3>More to come</h3>
+      </li>
+    </ol>
+  </section>
+
+  <section id="skills">
+    <header><div class="eyebrow">Toolkit</div><h2>Skills</h2></header>
+    <dl class="skills">
+      <dt>Languages</dt><dd>C++, C, Python, JavaScript, SQL, HTML/CSS, MIPS Assembly</dd>
+      <dt>Frameworks &amp; tools</dt><dd>React Native (Expo), Supabase, Godot, Git/GitHub, REST APIs, Postman, VS Code, Figma</dd>
+      <dt>Areas</dt><dd>OCR and image processing, embedded sensor integration, Agile/Scrum</dd>
+    </dl>
+  </section>
+
+  <section>
+    <header><div class="eyebrow">On campus</div><h2>Leadership</h2></header>
+    <div class="lead">
+      <p><b>Events Lead, AIML Club</b><br>Lead a team of 3–4 members to plan and run club events.</p>
+      <p><b>Events Coordinator, International Student Organization</b><br>Plan events and connect with students from a wide range of backgrounds.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="eyebrow">Say hi</div>
+    <h2>Let's talk internships</h2>
+    <div class="row">
+      <span class="email" id="email">jadaismail.sange@sjsu.edu</span>
+      <button id="copy" type="button">Copy email</button>
+    </div>
+    <div class="row"><a href="https://linkedin.com/in/jada-sange-626234378" target="_blank" rel="noopener">LinkedIn ↗</a></div>
+  </section>
+
+  <footer>© 2026 Jada Sange</footer>
+</div>
+
+<script>
+document.getElementById('copy').addEventListener('click', e => {
+  const b = e.currentTarget, t = document.getElementById('email').textContent;
+  navigator.clipboard.writeText(t).then(() => { b.textContent = 'Copied'; setTimeout(() => b.textContent = 'Copy email', 1500); })
+    .catch(() => { const r = document.createRange(); r.selectNodeContents(document.getElementById('email')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); });
+});
+</script>
+</body></html>
